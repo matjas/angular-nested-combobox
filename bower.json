@@ -1,0 +1,15 @@
+{
+    "name": "angular-tree-combobox",
+    "version": "0.0.1",
+    "main": [
+        "src/ng-tree-combobox.js"
+    ],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ],
+    "dependencies": {
+        "angular": "~1.2.17"
+    }
+}

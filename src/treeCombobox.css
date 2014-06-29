@@ -1,0 +1,70 @@
+.custom-select {
+  position: relative;
+  padding: 0 10px;
+  height: 32px;
+  font-size: 13px;
+  display: block;
+  line-height: 14px;
+  color: #333333;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.custom-select p {
+  line-height: 32px;
+  margin: 0;
+}
+.custom-select > span {
+  position: absolute;
+  right: 6px;
+  top: 4px;
+}
+.custom-select .list {
+  box-sizing: content-box;
+  position: absolute;
+  top: 31px;
+  left: -1px;
+  background-color: #FFF;
+  border-style: solid;
+  border-color: #cccccc;
+  border-width: 0 1px 1px 1px;
+  width: 100%;
+  z-index: 1100;
+}
+.custom-select .list ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+}
+.custom-select .list ul li a {
+  padding-left: 15px;
+  display: block;
+  color: #333333;
+  text-decoration: none;
+  font-weight: bold;
+}
+.custom-select .list ul li a:hover {
+  background-color: #0072c6;
+  color: #FFF;
+}
+.custom-select .list ul li a.root {
+  padding-left: 10px;
+}
+.custom-select .list ul li li a {
+  padding-left: 20px;
+  font-weight: normal;
+}
+.custom-select:focus {
+  border-color: #1f1f1f;
+}
+.custom-select[disabled],
+.custom-select[readonly],
+fieldset[disabled] .custom-select {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+}

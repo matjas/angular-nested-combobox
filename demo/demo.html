@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="treeCombobox">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Demo ng-tree-combobox</title>
+    <link rel='stylesheet' href="../src/treeCombobox.css" />
+    <script src="../bower_components/angular/angular.js" ></script>
+    <script src="../src/ng-tree-combobox.js"></script>
+    <script>
+        var treeCombobox=angular.module('treeCombobox',['ng.tree.combobox']);
+
+        treeCombobox.controller('treeComboboxController',function($scope){
+            $scope.collection=[
+                {
+                    id:1,
+                    name:'item1',
+                    childrens:[
+                        {
+                            id:2,
+                            name:'item1_1'
+                        },
+                        {
+                            id:3,
+                            name:'item2_2'
+                        }
+
+                    ]
+
+                },
+                {
+                    id:4,
+                    name:'item2',
+                    childrens:[
+                        {
+                            id:5,
+                            name:'item2_1'
+                        },
+                        {
+                            id:6,
+                            name:'item2_2'
+                        }
+
+                    ]
+
+                }
+            ]
+
+            $scope.changeItem=function(value){
+                $scope.selectedItem=value;
+            }
+        })
+
+    </script>
+</head>
+<body>
+<div class="container" data-ng-controller="treeComboboxController">
+    <div class="row">
+        <div class="col-3-lg">
+            <h2>Demo ng-tree-combobox</h2>
+            <div>
+                <group-select-service control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />
+            </div>
+            <p>Selected item: {{selectedItem}}</p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
