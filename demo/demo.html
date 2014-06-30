@@ -37,8 +37,19 @@
                         },
                         {
                             id:6,
-                            name:'item2_2'
+                            name:'item2_2',
+                            childrens:[
+                                {
+                                    id:7,
+                                    name:'item2_2_1'
+                                },
+                                {
+                                    id:8,
+                                    name:'item2_2_2'
+                                }
+                            ]
                         }
+
 
                     ]
 
@@ -53,17 +64,15 @@
     </script>
 </head>
 <body>
-<div class="container" data-ng-controller="treeComboboxController">
-    <div class="row">
-        <div class="col-3-lg">
+
+        <div class="container" data-ng-controller="treeComboboxController">
             <h2>Demo ng-tree-combobox</h2>
             <div>
-                <group-select-service control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />
+                <select-tree-combo-box control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />
             </div>
             <p>Selected item: {{selectedItem}}</p>
         </div>
-    </div>
-</div>
+
 
 
 

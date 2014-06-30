@@ -3,7 +3,7 @@
  */
 
 angular.module('ng.tree.combobox',[])
-    .directive('groupSelectService',function(){
+    .directive('selectTreeComboBox',function(){
 
 
         var controller=function($scope, $element, $attrs){

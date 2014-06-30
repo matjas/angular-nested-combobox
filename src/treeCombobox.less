@@ -5,6 +5,13 @@
 @mainColor:             #1F1F1F;
 @baseLineHeight:        14px;
 
+body{
+  font-size:14px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+p,a{font-size:14px;line-height: 20px;}
+.container{width:300px;}
 
 //Custom select
 .custom-select{position:relative;padding: 0 10px;
@@ -38,13 +45,18 @@
           &:hover{background-color:@blueColor;color:#FFF;}
           &.root{padding-left:10px;}
         }
-        li{
-          a{padding-left:20px;font-weight:normal;}
+
+        ul{
+          li{padding:0 0 0 15px;
+            a{padding-left:20px;font-weight:normal;}
+          }
         }
+
       }
     }
 
   }
+  .icon-sort-down{background:url('icn.png') no-repeat 0 -12px #FFF;height:20px;width:10px;display:block;}
 }
 .custom-select:focus {
   border-color: @mainColor;
