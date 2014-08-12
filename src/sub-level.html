@@ -1,5 +1,5 @@
 
 <a href="" data-ng-click="gs.selectValue(e,member)">{{member.name}}</a>
 <ul>
-    <li ng-repeat="member in member.childrens track by member.id" ng-include="'../src/sub-level.html'"></li>
+    <li ng-repeat="member in member.childrens" ng-include="'../src/sub-level.html'"></li>
 </ul>

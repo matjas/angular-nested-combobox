@@ -10,7 +10,9 @@
         var treeCombobox=angular.module('nestedCombobox',['ng.nested.combobox']);
 
         treeCombobox.controller('nestedComboboxController',function($scope){
-            $scope.collection=[
+            var that = this;
+
+            this.collection1 = [
                 {
                     id:1,
                     name:'item1',
@@ -54,10 +56,72 @@
                     ]
 
                 }
-            ]
+            ];
 
-            $scope.changeItem=function(value){
-                $scope.selectedItem=value;
+            this.collection2 = [
+                {
+                    id:1,
+                    name:'col2_item1',
+                    childrens:[
+                        {
+                            id:2,
+                            name:'col2_item1_1'
+                        },
+                        {
+                            id:3,
+                            name:'col2_item2_2'
+                        }
+
+                    ]
+
+                },
+                {
+                    id:4,
+                    name:'col2_item2',
+                    childrens:[
+                        {
+                            id:5,
+                            name:'col2_item2_1'
+                        },
+                        {
+                            id:6,
+                            name:'col2_item2_2',
+                            childrens:[
+                                {
+                                    id:7,
+                                    name:'col2_item2_2_1'
+                                },
+                                {
+                                    id:8,
+                                    name:'col2_item2_2_2'
+                                }
+                            ]
+                        }
+
+
+                    ]
+
+                }
+            ];
+
+            this.collection = this.collection1;
+           /* $scope.changeCollection = function(type) {
+                console.log(type, ' change collection');
+                switch (type) {
+                    case '1':$scope.collection = collection1;
+                            break;
+                    case '2':$scope.collection = collection2;
+                            break;
+                }
+            }*/
+
+            this.changeItem = function (value) {
+                that.selectedItem = value;
+            }
+
+            this.activeItem =  {
+                id:2,
+                name:'item1_1'
             }
         })
 
@@ -65,12 +129,24 @@
 </head>
 <body>
 
-        <div class="container" data-ng-controller="nestedComboboxController">
+        <div class="container" data-ng-controller="nestedComboboxController as demo">
             <h2>Demo ng-nested-combobox</h2>
-            <div>
-                <nested-combo-box control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />
+            <div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" data-ng-model="demo.collection" ng-value="demo.collection1" />
+                    Collection1
+                </label>
             </div>
-            <p>Selected item: {{selectedItem}}</p>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" data-ng-model="demo.collection" ng-value="demo.collection2"  />
+                    Collection2
+                </label>
+            </div>
+            <div>
+                <nested-combo-box control-class="col-md-7" change-event="demo.changeItem"  collection="demo.collection" current-member="demo.activeItem" />
+            </div>
+            <p>Selected item: {{demo.selectedItem}}</p>
         </div>
 
 

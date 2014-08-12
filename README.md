@@ -1,7 +1,7 @@
-angular-tree-combobox
+angular-nested-combobox
 =================
 
-**angular-tree-combobox** is a AngularJS custom select combo box component with tree structure. It can be used when
+**angular-nested-combobox** is a custom drop-down list directive for AngularJs with nested elements. It can be used when
 data have parents and children structure. Depth is determined by data. 
 
 ### Current Version 0.0.1

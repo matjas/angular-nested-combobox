@@ -2,23 +2,27 @@
  * Created by Maciek on 2014-06-29.
  */
 
-angular.module('ng.tree.combobox',[])
-    .directive('selectTreeComboBox',function(){
+angular.module('ng.nested.combobox', [])
+    .directive('nestedComboBox', function () {
+        'use strict';
+
+        var controller = function ($scope, $element, $attrs) {
+            var that = this;
 
 
-        var controller=function($scope, $element, $attrs){
-            var _this=this;
-
-            this.showRoot=$attrs.showRoot;
-
-            $scope.$watch('currentMember',function(value){
-                _this.currentMember=value;
+            $scope.$watch('currentMember', function (value) {
+                that.currentMember = value;
                 $scope.changeEvent(value);
             });
-            $scope.$watch('collection',function(value){
-                //_this.collection=value;
+           /* $attrs.$observe('currentMember', function (value) {
+                that.currentMember = value;
+                $scope.changeEvent(value);
+            });*/
 
-                if($scope.collection!==undefined && $scope.collection!==null) {
+            $scope.$watch('collection', function (value) {
+                //that.collection=value;
+
+                if ($scope.collection !== undefined && $scope.collection !== null) {
                     for (var i = 0; i < $scope.collection.length; i++) {
                         $scope.collection[i].level = 0;
                     }
@@ -26,7 +30,7 @@ angular.module('ng.tree.combobox',[])
             });
 
             $scope.$watch('controlDisabled',function(value){
-                _this.controlDisabled=value;
+                that.controlDisabled=value;
             });
 
             //this.currentMember=$scope.currentMember;
@@ -34,7 +38,7 @@ angular.module('ng.tree.combobox',[])
             this.isOpen=false;
             this.toggleOpen=function(){
 
-                if(_this.controlDisabled=='true') {
+                if(that.controlDisabled=='true') {
                     this.isOpen = false
                     return
                 }
@@ -51,14 +55,14 @@ angular.module('ng.tree.combobox',[])
                 if(member.id=='root'){
                     member.name=event.currentTarget.innerText;
                 }
-                _this.currentMember=member;
+                that.currentMember=member;
                 $scope.currentMember=member;
 
                 //$scope.changeEvent(member);
                 oldMemberId=member.id;
 
             }
-        }
+        };
 
         return{
             restrict:'E',
@@ -72,7 +76,6 @@ angular.module('ng.tree.combobox',[])
                 controlClass:'@',
                 controlDisabled:'@',
                 changeEvent:'='
-                // showRoot:'@showRoot'
             }
         }
     });
