@@ -4,20 +4,19 @@ angular-nested-combobox
 **angular-nested-combobox** is a custom drop-down list directive for AngularJs with nested elements. It can be used when
 data have parents and children structure. Depth is determined by data. 
 
-[![License][http://img.shields.io/gemnasium/CaryLandholt/AngularFun.svg?style=flat]]
-[![Version][http://img.shields.io/github/tag/CaryLandholt/AngularFun.svg?style=flat]]
-
-#### Current Version 0.0.1
 ## Demo
-# [![angular-translate](https://github.com/matjas/angular-nested-combobox/demo/demo_img.jpg)]
+
+![angular-nested-combobox](https://github.com/matjas/angular-nested-combobox/blob/master/demo/demo_img.jpg)
+
 ## Getting started
 
 1. Link scripts:
 
 ```html
-<link href="src/treeCombobox.css" rel="stylesheet" />
+<link href="src/nestedCombobox.css" rel="stylesheet" />
+<!-- angular must load first -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js" ></script>
-<script src="src/ng-tree-combobox.js"></script>
+<script src="src/ng-nested-combobox.js"></script>
 ```
 
 2. Add tree combo-box directive container directive: 
