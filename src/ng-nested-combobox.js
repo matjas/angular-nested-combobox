@@ -7,75 +7,62 @@ angular.module('ng.nested.combobox', [])
         'use strict';
 
         var controller = function ($scope, $element, $attrs) {
-            var that = this;
+            var that = this,
+                oldMemberId = null;
+            this.isOpen = false;
+            this.currentMember = $scope.currentMember;
 
-
-            $scope.$watch('currentMember', function (value) {
-                that.currentMember = value;
-                $scope.changeEvent(value);
+            $scope.$watch('controlDisabled', function (value) {
+                that.controlDisabled = value;
             });
-           /* $attrs.$observe('currentMember', function (value) {
-                that.currentMember = value;
-                $scope.changeEvent(value);
+
+           /* $element.on('blur', function (e) {
+                //that.isOpen.status = !that.isOpen.status;
+                that.isOpen = false;
+            });
+            $element.on('focus', function (e) {
+                //that.isOpen.status = !that.isOpen.status;
+                that.isOpen = true;
             });*/
 
-            $scope.$watch('collection', function (value) {
-                //that.collection=value;
+            this.toggleOpen = function () {
 
-                if ($scope.collection !== undefined && $scope.collection !== null) {
-                    for (var i = 0; i < $scope.collection.length; i++) {
-                        $scope.collection[i].level = 0;
-                    }
+                if (that.controlDisabled === 'true') {
+                    this.isOpen.status = false;
+                    return false;
                 }
-            });
-
-            $scope.$watch('controlDisabled',function(value){
-                that.controlDisabled=value;
-            });
-
-            //this.currentMember=$scope.currentMember;
-            //console.log(this.currentMember,' current member dir');
-            this.isOpen=false;
-            this.toggleOpen=function(){
-
-                if(that.controlDisabled=='true') {
-                    this.isOpen = false
-                    return
-                }
-
-                this.isOpen=!this.isOpen;
+                this.isOpen = !this.isOpen;
             };
 
-            var oldMemberId=null;
-            this.selectValue=function(event,member){
+            this.selectValue = function (event, member) {
 
-                if(oldMemberId==member.id)
-                    return;
-
-                if(member.id=='root'){
-                    member.name=event.currentTarget.innerText;
+                if (oldMemberId === member.id) {
+                    return true;
                 }
-                that.currentMember=member;
-                $scope.currentMember=member;
 
-                //$scope.changeEvent(member);
-                oldMemberId=member.id;
+                if (member.id === 'root') {
+                    member.name = event.currentTarget.innerText;
+                }
+                //that.currentMember = member;
+                $scope.changeEvent(member);
+                that.currentMember = member;
+                oldMemberId = member.id;
 
-            }
+            };
         };
 
-        return{
-            restrict:'E',
-            controller:controller,
+        return {
+            restrict: 'E',
+            controller: controller,
             controllerAs: 'gs',
-            replace:true,
-            templateUrl:'../src/select-group.html',
-            scope:{
-                collection:'=',
-                currentMember:'=',
-                controlClass:'@',
-                controlDisabled:'@',
-                changeEvent:'='
+            replace: true,
+            templateUrl: '../src/select-group.html',
+            scope: {
+                collection: '=',
+                currentMember: '=',
+                controlClass: '@',
+                controlDisabled: '@',
+                changeEvent: '='
             }
-        }
+        };
     });
