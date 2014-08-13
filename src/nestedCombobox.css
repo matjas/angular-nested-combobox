@@ -7,9 +7,6 @@ a {
   font-size: 14px;
   line-height: 20px;
 }
-.container {
-  width: 300px;
-}
 .custom-select {
   position: relative;
   padding: 0 10px;
@@ -38,14 +35,19 @@ a {
 .custom-select .list {
   box-sizing: content-box;
   position: absolute;
-  top: 31px;
+  top: 32px;
   left: -1px;
   background-color: #FFF;
   border-style: solid;
   border-color: #cccccc;
-  border-width: 0 1px 1px 1px;
-  width: 100%;
+  border-width: 1px 1px 1px 1px;
+  width: auto;
   z-index: 1100;
+  overflow-x: hidden;
+  max-height: 200px;
+  min-width: 100%;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
 .custom-select .list ul {
   list-style: none;
@@ -54,25 +56,36 @@ a {
   margin: 0;
 }
 .custom-select .list ul li a {
-  padding-left: 15px;
   display: block;
   color: #333333;
   text-decoration: none;
   font-weight: bold;
 }
+.custom-select .list ul li a span {
+  padding-left: 15px;
+}
 .custom-select .list ul li a:hover {
-  background-color: #0072c6;
-  color: #FFF;
+  background-color: #cccccc;
+  color: #333333;
 }
 .custom-select .list ul li a.root {
   padding-left: 10px;
 }
-.custom-select .list ul li ul li {
-  padding: 0 0 0 15px;
+.custom-select .list ul li.active > a {
+  background-color: #cccccc;
+  color: #333333;
 }
 .custom-select .list ul li ul li a {
-  padding-left: 20px;
   font-weight: normal;
+}
+.custom-select .list ul li ul li a span {
+  padding-left: 30px;
+}
+.custom-select .list ul li ul li li a span {
+  padding-left: 45px;
+}
+.custom-select .list ul li ul li li a li a span {
+  padding-left: 60px;
 }
 .custom-select .icon-sort-down {
   background: url('icn.png') no-repeat 0 -12px #ffffff;
@@ -88,4 +101,10 @@ a {
 fieldset[disabled] .custom-select {
   cursor: not-allowed;
   background-color: #eeeeee;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
