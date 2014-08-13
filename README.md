@@ -20,14 +20,16 @@ data have parents and children structure. Depth is determined by data.
 ```
 
 2. Add tree combo-box directive container directive: 
-`<select-tree-combo-box control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />`
+```html
+<select-tree-combo-box control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />
+```
 
 3. Prepare input data and output event function :
 
 ```js
-	// Display an info toast with no title
+	
 	angular.module('main', ['ng.tree.combobox'])
-	.controller('myController', function($scope, toaster) {
+	.controller('myController', function($scope) {
 	    $scope.collection=[
 	       {
            		  id:1,
