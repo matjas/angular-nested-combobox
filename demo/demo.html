@@ -25,9 +25,7 @@
                             id:3,
                             name:'item2_2'
                         }
-
                     ]
-
                 },
                 {
                     id:4,
@@ -51,72 +49,19 @@
                                 }
                             ]
                         }
-
-
                     ]
 
                 }
             ];
 
-            this.collection2 = [
-                {
-                    id:1,
-                    name:'col2_item1',
-                    childrens:[
-                        {
-                            id:2,
-                            name:'col2_item1_1'
-                        },
-                        {
-                            id:3,
-                            name:'col2_item2_2'
-                        }
 
-                    ]
-
-                },
-                {
-                    id:4,
-                    name:'col2_item2',
-                    childrens:[
-                        {
-                            id:5,
-                            name:'col2_item2_1'
-                        },
-                        {
-                            id:6,
-                            name:'col2_item2_2',
-                            childrens:[
-                                {
-                                    id:7,
-                                    name:'col2_item2_2_1'
-                                },
-                                {
-                                    id:8,
-                                    name:'col2_item2_2_2'
-                                }
-                            ]
-                        }
-
-
-                    ]
-
-                }
-            ];
 
             this.collection = this.collection1;
-           /* $scope.changeCollection = function(type) {
-                console.log(type, ' change collection');
-                switch (type) {
-                    case '1':$scope.collection = collection1;
-                            break;
-                    case '2':$scope.collection = collection2;
-                            break;
-                }
-            }*/
+
 
             this.changeItem = function (value) {
                 that.selectedItem = value;
+                console.log(that.selectedItem);
             }
 
             this.activeItem =  {
@@ -126,27 +71,26 @@
         })
 
     </script>
+    <style>
+        .col{float:left;padding:20px;width:300px;}
+        .container{width:100%;}
+        .code{background-color:#F4F4F4}
+    </style>
 </head>
 <body>
 
         <div class="container" data-ng-controller="nestedComboboxController as demo">
             <h2>Demo ng-nested-combobox</h2>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" data-ng-model="demo.collection" ng-value="demo.collection1" />
-                    Collection1
-                </label>
+
+
+            <div class="col">
+                <nested-combo-box control-class="col-md-7" control-disabled="false" change-event="demo.changeItem"  collection="demo.collection" current-member="demo.activeItem" />
             </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" data-ng-model="demo.collection" ng-value="demo.collection2"  />
-                    Collection2
-                </label>
+            <div class="col code">
+                <p>Selected item:</p>
+                <pre>{{demo.selectedItem | json}}</pre>
             </div>
-            <div>
-                <nested-combo-box control-class="col-md-7" change-event="demo.changeItem"  collection="demo.collection" current-member="demo.activeItem" />
-            </div>
-            <p>Selected item: {{demo.selectedItem}}</p>
+
         </div>
 
 
