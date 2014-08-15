@@ -80,6 +80,11 @@ data have parents and children structure. Depth is determined by data.
 ```
 ## Options
 
+1. `control-disabled` - will disable control;
+2. `change-event` - function name in your controller where receive selected data from control
+3. `collection` - input data collection
+4. `current-member` - selected data
+
 ## Author
 **Maciej Jaskula**
 
