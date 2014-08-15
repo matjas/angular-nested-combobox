@@ -13,10 +13,7 @@
   ],
   "devDependencies": {
     "angular": "~1.2.17",
-    "angular-mocks": "~1.2.17",
-      "grunt": "~0.4.5",
-      "grunt-contrib-less": "~0.11.3",
-      "grunt-contrib-watch": "~0.6.1"
+    "angular-mocks": "~1.2.17"
   },
   "licenses": [
     {
