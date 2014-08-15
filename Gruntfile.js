@@ -2,9 +2,23 @@ module.exports = function (grunt) {
     'use strict';
   // Project configuration.
     grunt.initConfig({
-        pkg      : grunt.file.readJSON('bower.json'),
+        pkg      : grunt.file.readJSON('package.json'),
 
         language: grunt.option('lang') || 'en',
+
+        html2js: {
+            dist: {
+                options: {
+                    module: null, // no bundle module for all the html2js templates
+                    base: '.'
+                },
+                files: [{
+                    expand: true,
+                    src: ['template/*.html'],
+                    ext: '.html.js'
+                }]
+            }
+        },
 
         less: {
 
@@ -30,19 +44,15 @@ module.exports = function (grunt) {
                     interrupt: true
                 }
             }
-        },
-        css: {
-            compile: ['less']
         }
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-html2js');
 
   // register css task to have option to separate styles compilation and build
-    grunt.registerMultiTask('css', function () {
-        grunt.task.run(this.data);
-    });
-    grunt.registerTask('build-css', ['css']);
-   // grunt.registerTask('default', ['watch']);
+    grunt.registerTask('before-test', ['html2js']);
+    grunt.registerTask('watch', ['before-test', 'watch']);
 };
