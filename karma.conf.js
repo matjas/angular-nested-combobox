@@ -3,7 +3,7 @@
 module.exports = function (config) {
     config.set({
 
-        basePath: '',
+        basePath: '.',
 
         frameworks: ['jasmine'],
 
@@ -13,7 +13,8 @@ module.exports = function (config) {
             'bower_components/angular-mocks/angular-mocks.js',
             'src/ng-nested-combobox.js',
             'src/**/*.js',
-            'test/unit/**/*.spec.js'
+            'test/unit/**/*.spec.js',
+            'template/*.js'
         ],
 
         exclude: [],
