@@ -1,0 +1,5 @@
+
+<a href="" data-ng-click="gs.selectValue(e,member)"><span>{{member.name}}</span></a>
+<ul>
+    <li data-ng-class="{'active':gs.currentMember.id === member.id}" ng-repeat="member in member.childrens" ng-include="'template/sub-level.html'"></li>
+</ul>

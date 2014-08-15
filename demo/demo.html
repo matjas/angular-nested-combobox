@@ -7,9 +7,9 @@
     <script src="../bower_components/angular/angular.js" ></script>
     <script src="../src/ng-nested-combobox.js"></script>
     <script>
-        var treeCombobox=angular.module('nestedCombobox',['ng.nested.combobox']);
+        var nestedCombobox=angular.module('nestedCombobox',['ui.nested.combobox']);
 
-        treeCombobox.controller('nestedComboboxController',function($scope){
+        nestedCombobox.controller('nestedComboboxController',function($scope){
             var that = this;
 
             this.collection1 = [
@@ -61,7 +61,6 @@
 
             this.changeItem = function (value) {
                 that.selectedItem = value;
-                console.log(that.selectedItem);
             }
 
             this.activeItem =  {
