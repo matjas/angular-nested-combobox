@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.0.3](https://github.com/matjas/angular-nested-combobox/tree/0.0.3) (2016-04-08)
+[Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.0.2...0.0.3)
+
 ## [0.0.2](https://github.com/matjas/angular-nested-combobox/tree/0.0.2) (2016-04-08)
 [Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.0.1...0.0.2)
 
