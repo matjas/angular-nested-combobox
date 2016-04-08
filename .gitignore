@@ -3,7 +3,5 @@ bower_components
 
 # IntelliJ
 .idea/
-*.iml
 
-template/select-group.html.js
-template/sub-level.html.js
+**/*.map
