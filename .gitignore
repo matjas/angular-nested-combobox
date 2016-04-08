@@ -3,5 +3,5 @@ bower_components
 
 # IntelliJ
 .idea/
-
+src/tmp/**/*.*
 **/*.map
