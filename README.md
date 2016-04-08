@@ -6,7 +6,7 @@ data have parents and children structure. Depth is determined by data.
 
 ## Demo
 
-![angular-nested-combobox](https://github.com/matjas/angular-nested-combobox/blob/master/demo/demo_img.jpg)
+![angular-nested-combobox](https://github.com/matjas/angular-nested-combobox/blob/master/misc/demo/demo_img.jpg)
 
 ## Getting started
 
