@@ -8,6 +8,8 @@ data have parents and children structure. Depth is determined by data.
 
 ![angular-nested-combobox](https://github.com/matjas/angular-nested-combobox/blob/master/misc/demo/demo_img.jpg)
 
+Example demo in misc/demo folder. You can run this on your local server.
+
 ## Getting started
 
 1. Link scripts:
@@ -15,8 +17,8 @@ data have parents and children structure. Depth is determined by data.
 ```html
 <link href="src/nestedCombobox.css" rel="stylesheet" />
 <!-- angular must load first -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js" ></script>
-<script src="src/ng-nested-combobox.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="dist/ng-nested-combobox.js"></script>
 ```
 
 2. Add tree combo-box directive container directive: 
