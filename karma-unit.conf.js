@@ -9,15 +9,18 @@ module.exports = function (config) {
 
         files: [
 
-            'bower_components/angular/angular.js',
-            'bower_components/angular-mocks/angular-mocks.js',
-            'src/ng-nested-combobox.js',
-            'src/**/*.js',
-            'test/unit/**/*.spec.js',
-            'template/*.js'
+            'node_modules/angular/angular.js',
+            'node_modules/angular-mocks/angular-mocks.js',
+            'dist/ng-nested-combobox.js',
+            'test/unit/**/*.spec.js'
         ],
 
-        exclude: [],
+        preprocessors: {
+            'dist/templates/**/*.html': 'ng-html2js'
+        },
+        ngHtml2JsPreprocessor: {
+            moduleName: 'dir-templates'
+        },
 
         reports: ['progress'],
 
@@ -40,13 +43,14 @@ module.exports = function (config) {
 
         captureTimeout: 60000,
 
-        singleRun: false,
-
         plugins: [
-            'karma-jasmine',
-            'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-phantomjs-launcher'
-        ]
+            'karma-mocha',
+            'karma-should',
+            'karma-chrome-launcher',
+            'karma-jasmine'
+        ],
+
+        singleRun: false
     });
 };

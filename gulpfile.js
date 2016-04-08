@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     gp_concat = require('gulp-concat'),
     del = require('del'),
     less = require('gulp-less'),
-    karma = require('gulp-karma'),
     sourcemaps = require('gulp-sourcemaps'),
     livereload = require('gulp-livereload'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -17,11 +16,12 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     filter = require('gulp-filter'),
     cache = require('gulp-cached'),
-    templateCache = require('gulp-angular-templatecache'),
+    ngHtml2Js = require("gulp-ng-html2js"),
     merge = require('merge-stream'),
     path = require('path'),
     size = require('gulp-size'),
     htmlmin = require('gulp-htmlmin'),
+    Server = require('karma').Server,
     protractor = require("gulp-protractor").protractor,
     webdriver_standalone = require("gulp-protractor").webdriver_standalone,
     webdriver_update = require("gulp-protractor").webdriver_update;
@@ -85,9 +85,9 @@ gulp.task('clean', function (cb) {
     cb();
 });
 
-gulp.task('build-app', function () {
+gulp.task('build-app', ['html'], function () {
 
-    return gulp.src(['./src/js/ng-nested-combobox.js'])
+    return gulp.src(['./src/js/ng-nested-combobox.js', './src/tmp/*.js'])
         .pipe(gulpIf(sourceMap, sourcemaps.init({loadMaps: true})))
         .pipe(gp_concat('ng-nested-combobox.js'))
         //.pipe(gulpIf(isProduction, cachebust.resources()))
@@ -99,33 +99,44 @@ gulp.task('build-app', function () {
 });
 
 gulp.task('html', function () {
-    var tplFilterList = [],
-        tplFilter = filter(tplFilterList),
-        staticFilter = [ '**/*'],
-        cachedTplFilter = null;
-
-    for(var i=0; i < tplFilterList.length; i ++){
-        staticFilter.push("!"+ tplFilterList[i]);
-    }
-    for(var j=0; j < cachedTemplates.length; j ++){
-        staticFilter.push("!" + cachedTemplates[j]);
-    }
-    staticFilter = filter(staticFilter);
-    cachedTplFilter = filter(cachedTemplates);
-
-    return gulp.src(htmlPath)
-        .pipe(cache('html'))
+    gulp.src(htmlPath)
         .pipe(isProduction ? htmlmin({collapseWhitespace: true}) : gutil.noop())
-        //.pipe(tplFilter)
-        //.pipe(gulp.dest('dist/templates/'))
-        //.pipe(tplFilter.restore());
-        //.pipe(cachedTplFilter)
-        //.pipe(gulp.dest('tmp/cached_templates/'))
-        //.pipe(cachedTplFilter.restore())
-        //.pipe(staticFilter)
-        .pipe(gulp.dest('./misc/demo/templates'))
-        .pipe(gulp.dest('./dist/templates'));
+        .pipe(ngHtml2Js({
+            moduleName: "ui.nested.combobox"
+        }))
+        .pipe(gulpIf(isProduction, uglify())).on('error', gutil.log)
+        .pipe(gp_concat("templates.js"))
+        .pipe(gulp.dest('./src/tmp'));
 });
+
+// gulp.task('html', function () {
+//     var tplFilterList = [],
+//         tplFilter = filter(tplFilterList),
+//         staticFilter = [ '**/*'],
+//         cachedTplFilter = null;
+//
+//     for(var i=0; i < tplFilterList.length; i ++){
+//         staticFilter.push("!"+ tplFilterList[i]);
+//     }
+//     for(var j=0; j < cachedTemplates.length; j ++){
+//         staticFilter.push("!" + cachedTemplates[j]);
+//     }
+//     staticFilter = filter(staticFilter);
+//     cachedTplFilter = filter(cachedTemplates);
+//
+//     return gulp.src(htmlPath)
+//         .pipe(cache('html'))
+//         .pipe(isProduction ? htmlmin({collapseWhitespace: true}) : gutil.noop())
+//         //.pipe(tplFilter)
+//         //.pipe(gulp.dest('dist/templates/'))
+//         //.pipe(tplFilter.restore());
+//         //.pipe(cachedTplFilter)
+//         //.pipe(gulp.dest('tmp/cached_templates/'))
+//         //.pipe(cachedTplFilter.restore())
+//         //.pipe(staticFilter)
+//         .pipe(gulp.dest('./misc/demo/templates'))
+//         .pipe(gulp.dest('./dist/templates'));
+// });
 
 
 gulp.task('css', function () {
@@ -178,22 +189,18 @@ gulp.task('watch', ['build'], function () {
  * Unit tests
  */
 var testFiles = [
+    'node_modules/angular/angular.js',
+    'node_modules/angular-mocks/angular-mocks.js',
     'dist/ng-nested-combobox.js',
-    'test/unit/karma-helpers.coffee',
-    'app/js/lib/angular-mocks/angular-mocks.js',
-    'test/unit/**/*spec.coffee'
+    'test/unit/karma-helpers.js',
+    'test/unit/**/*spec.js'
 ];
 
-gulp.task('test:unit', function() {
-    return gulp.src(testFiles)
-        .pipe(karma({
-            configFile: 'test/karma-unit.conf.js',
-            action: 'watch'
-        }))
-        .on('error', function(err) {
-            // Make sure failed tests cause gulp to exit non-zero
-            throw err;
-        });
+gulp.task('test:unit', function(done) {
+    new Server({
+        configFile: __dirname + '/karma-unit.conf.js',
+        singleRun: true
+    }, done).start();
 });
 
 /**

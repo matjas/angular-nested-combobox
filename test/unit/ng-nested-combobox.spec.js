@@ -48,8 +48,8 @@ describe('angular-nested-combobox directive', function () {
 
     beforeEach(module('ui.nested.combobox'));
     // load the template
-    beforeEach(module('template/select-group.html'));
-    beforeEach(module('template/sub-level.html'));
+    //beforeEach(module('template/select-group.html'));
+    //beforeEach(module('template/sub-level.html'));
     beforeEach(inject(function (_$rootScope_, _$compile_, _$timeout_, _$controller_) {
         scope = _$rootScope_;
         $compile = _$compile_;
