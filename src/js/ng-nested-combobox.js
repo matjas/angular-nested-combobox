@@ -56,7 +56,7 @@ angular.module('ui.nested.combobox', [])
             controller: 'NestedComboboxController',
             controllerAs: 'gs',
             replace: true,
-            templateUrl: 'template/select-group.html',
+            templateUrl: 'templates/select-group.html',
             scope: {
                 collection: '=',
                 currentMember: '=',
