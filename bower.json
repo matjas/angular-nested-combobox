@@ -1,7 +1,7 @@
 {
   "name": "rangular-nested-combobox",
   "description": "Custom drop-down list directive for AngularJs with nested elements",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/matjas/angular-nested-combobox.git"
