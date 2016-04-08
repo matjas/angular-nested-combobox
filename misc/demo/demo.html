@@ -3,49 +3,70 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Demo ng-nested-combobox</title>
-    <link rel='stylesheet' href="assets/nestedCombobox.css" />
+    <link rel='stylesheet' href="assets/nestedCombobox.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="assets/ng-nested-combobox.js"></script>
     <script>
-        var nestedCombobox=angular.module('nestedCombobox',['ui.nested.combobox']);
+        var nestedCombobox = angular.module('nestedCombobox', ['ui.nested.combobox']);
 
-        nestedCombobox.controller('nestedComboboxController',function($scope){
+        nestedCombobox.controller('nestedComboboxController', function ($scope) {
             var that = this;
 
             this.collection1 = [
                 {
-                    id:1,
-                    name:'item1',
-                    childrens:[
+                    id: 1,
+                    name: 'item1',
+                    childrens: [
                         {
-                            id:2,
-                            name:'item1_1'
+                            id: 2,
+                            name: 'item1_1'
                         },
                         {
-                            id:3,
-                            name:'item2_2'
+                            id: 3,
+                            name: 'item2_2'
                         }
                     ]
                 },
                 {
-                    id:4,
-                    name:'item2',
-                    childrens:[
+                    id: 4,
+                    name: 'item2',
+                    childrens: [
                         {
-                            id:5,
-                            name:'item2_1'
+                            id: 5,
+                            name: 'item2_1'
                         },
                         {
-                            id:6,
-                            name:'item2_2',
-                            childrens:[
+                            id: 6,
+                            name: 'item2_2',
+                            childrens: [
                                 {
-                                    id:7,
-                                    name:'item2_2_1'
+                                    id: 7,
+                                    name: 'item2_2_1'
                                 },
                                 {
-                                    id:8,
-                                    name:'item2_2_2'
+                                    id: 8,
+                                    name: 'item2_2_2',
+                                    childrens: [
+                                        {
+                                            id: 9,
+                                            name: 'item2_2_2_1',
+                                            childrens: [
+                                                {
+                                                    id: 10,
+                                                    name: 'item2_2_2_1_1'
+                                                },
+                                                {
+                                                    id: 11,
+                                                    name: 'item2_2_2_1_2',
+                                                    childrens: [
+
+
+                                                    ]
+                                                }
+                                            ]
+                                        }
+
+                                    ]
                                 }
                             ]
                         }
@@ -55,7 +76,6 @@
             ];
 
 
-
             this.collection = this.collection1;
 
 
@@ -63,36 +83,45 @@
                 that.selectedItem = value;
             }
 
-            this.activeItem =  {
-                id:2,
-                name:'item1_1'
+            this.activeItem = {
+                id: 2,
+                name: 'item1_1'
             }
         })
 
     </script>
     <style>
-        .col{float:left;padding:20px;width:300px;}
-        .container{width:100%;}
-        .code{background-color:#F4F4F4}
+        .col {
+            float: left;
+            padding: 20px;
+            width: 300px;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .code {
+            background-color: #F4F4F4
+        }
     </style>
 </head>
 <body>
 
-        <div class="container" data-ng-controller="nestedComboboxController as demo">
-            <h2>Demo ng-nested-combobox</h2>
+<div class="container" data-ng-controller="nestedComboboxController as demo">
+    <h2>Demo ng-nested-combobox</h2>
 
 
-            <div class="col">
-                <nested-combo-box control-class="col-md-7" control-disabled="false" change-event="demo.changeItem"  collection="demo.collection" current-member="demo.activeItem" />
-            </div>
-            <div class="col code">
-                <p>Selected item:</p>
-                <pre>{{demo.selectedItem | json}}</pre>
-            </div>
+    <div class="col">
+        <nested-combo-box control-class="col-md-7" control-disabled="false" change-event="demo.changeItem"
+                          collection="demo.collection" current-member="demo.activeItem"/>
+    </div>
+    <div class="col code">
+        <p>Selected item:</p>
+        <pre>{{demo.selectedItem | json}}</pre>
+    </div>
 
-        </div>
-
-
+</div>
 
 
 </body>

@@ -1,7 +1,7 @@
 @baseLineHeight:        20px;
 @textColor:             #333;
 @inputBorder:           #ccc;
-@blueColor:            #cccccc;
+@greyColor:            #cccccc;
 @mainColor:             #1F1F1F;
 @baseLineHeight:        14px;
 
@@ -35,41 +35,48 @@ p,a{font-size:14px;line-height: 20px;}
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 
-
-
   p{line-height: 32px;margin:0;}
   > span{position:absolute;right: 6px;top: 4px;}
   .list{box-sizing: content-box;position:absolute;top:32px;left:-1px;background-color:#FFF;border-style: solid;border-color: @inputBorder;border-width: 1px 1px 1px 1px;width:auto;
-    z-index: 1100;overflow-x:hidden;max-height:200px;min-width: 100%;
+    z-index: 1100;overflow:auto;max-height:200px;min-width: 100%;
     .box-shadow(0 6px 12px rgba(0,0,0,.175));
-    ul{list-style:none;padding:0;width:100%;margin:0;
-      li{
-        a{//padding-left:15px;
-          span{padding-left:15px;}
-          display:block;color:@textColor;
+    ul{list-style:none;margin:0;display:block; padding:0;position:relative;
+      a{display:block;
+        &:before {
+          background: transparent;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          content: '';
+          height: 2em;
+          left: 0;
+          margin-top: -.5em;
+          position: absolute;
+          right: 0;
+        }
+      }
+      li{ display: block;
+          padding: .5em .5em .5em 1em;
+          &:hover > a:before{
+            background: rgba(90,90,90, 0.1);
+          }
+        a{
+          //display:block;
+          color:@textColor;
           text-decoration:none;font-weight:bold;
-          &:hover{background-color:@blueColor;color:@textColor;}
-          &.root{padding-left:10px;}
+          //&.root{padding-left:10px;}
+
 
         }
         &.active{
-          > a{background-color:@blueColor;color:@textColor;}
+          > a:before{background: rgba(90,90,90, 0.2)}
         }
 
-        ul{
-          li{//padding:0 0 0 15px;
-            a{//padding-left:20px;
+        ul{margin-bottom: -.5em;
+          //margin-top: .5em;
+          position:static;
+          li{
+            a{
               font-weight:normal;
-              span{padding-left:30px;}
-              }
-
-              li{//padding:0 0 0 15px;
-                a{span{padding-left:45px;}
-                  li{//padding:0 0 0 15px;
-                    a{span{padding-left:60px;}
-                    }
-                  }
-                }
               }
 
           }
