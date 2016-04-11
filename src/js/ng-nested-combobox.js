@@ -59,7 +59,7 @@
                         return currentNode;
                     } else {
 
-                        if(currentNode[that.options.childrenParam]) {
+                        if(angular.isArray(currentNode[that.options.childrenParam])) {
                             for (i = 0; i < currentNode[that.options.childrenParam].length; i += 1) {
                                 currentChild = currentNode[that.options.childrenParam][i];
                                 // Search in the current child
