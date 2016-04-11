@@ -12,8 +12,16 @@
             var that = this,
                 oldMemberId = null;
             this.isOpen = false;
-            this.currentMember = $scope.currentMember;
             this.options = angular.isDefined($scope.options) ? $scope.options : nestedComboBoxConfig.options;
+            this.selectedItem = {};
+            var node = {};
+
+            $scope.$watch('collection', function(value){
+                for(var i = 0; i < $scope.collection.length; i +=1 ) {
+                    node = findNode($scope.nsNgModel, $scope.collection[i]);
+                }
+                angular.extend(that.selectedItem, node);
+            });
 
 
             this.toggleOpen = function () {
@@ -30,15 +38,42 @@
                 if (oldMemberId === member.id) {
                     return true;
                 }
-
-                if (member.id === 'root') {
-                    member.name = event.currentTarget.innerText;
-                }
+                
                 $scope.changeEvent(member);
-                that.currentMember = member;
+                angular.extend(that.selectedItem, member);
+                $scope.nsNgModel = member.id;
                 oldMemberId = member.id;
 
             };
+
+            function findNode(id, currentNode) {
+                var i,
+                    currentChild,
+                    result;
+
+                if (currentNode){
+                    if (id == currentNode.id) {
+                        return currentNode;
+                    } else {
+
+                        if(currentNode[that.options.childrenParam]) {
+                            for (i = 0; i < currentNode[that.options.childrenParam].length; i += 1) {
+                                currentChild = currentNode[that.options.childrenParam][i];
+                                // Search in the current child
+                                result = findNode(id, currentChild);
+
+                                // Return the result if the node has been found
+                                if (result !== false) {
+                                    return result;
+                                }
+                            }
+                        }
+                        // The node has not been found and we have no more options
+                        return false;
+                    }
+                }
+
+            }
         }])
         .directive('nestedComboBox', ['$templateCache', function ($templateCache) {
             'use strict';
@@ -51,11 +86,11 @@
                 template: $templateCache.get('select-group.html'),
                 scope: {
                     collection: '=?',
-                    currentMember: '=?',
                     controlClass: '@?',
                     controlDisabled: '=?',
                     changeEvent: '=?',
-                    options: '=?'
+                    options: '=?',
+                    nsNgModel: '=?'
                 }
             };
         }]);

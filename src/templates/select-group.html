@@ -1,10 +1,10 @@
 <div class="custom-select" data-ng-disabled="controlDisabled" data-ng-class="controlClass"
      data-ng-click="gs.toggleOpen()">
-    <p>{{gs.currentMember.name}}</p>
+    <p>{{gs.selectedItem.name}}</p>
     <span><i class="icon-sort-down"></i></span>
     <div class="list" data-ng-show="gs.isOpen">
         <ul>
-            <li data-ng-class="{'active':gs.currentMember.id === member.id}" data-ng-include="'sub-level.html'"
+            <li data-ng-class="{'active':ngNgModel.id === member.id}" data-ng-include="'sub-level.html'"
                 data-ng-repeat="member in collection"></li>
         </ul>
     </div>
