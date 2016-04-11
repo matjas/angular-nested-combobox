@@ -86,24 +86,9 @@
             }
 
             this.activeItem = {
-                id: 8,
-                name: 'item2_2_2'
+                id: 8
             }
 
-            this.products = [
-                {
-                    productFamily: {
-                        id: 4,
-                        name: 'item2'
-                    }
-                },
-                {
-                    productFamily: {
-                        id: 8,
-                        name: 'item2_2_2'
-                    }
-                }
-            ]
         })
 
     </script>
@@ -130,13 +115,10 @@
 
 
     <div class="col">
-        <ul>
-            <li data-ng-repeat="item in demo.products">
-                <p>{{item.productFamily.id}}</p>
-                <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
-                                  ns-ng-model="item.productFamily.id" collection="demo.collection" options="{childrenParam: 'children'}"/>
-            </li>
-        </ul>
+
+    <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
+                      ns-ng-model="demo.activeItem.id" collection="demo.collection" options="{childrenParam: 'children'}"/>
+
     </div>
     <div class="col code">
         <p>Selected item:</p>

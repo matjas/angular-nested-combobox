@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.4](https://github.com/matjas/angular-nested-combobox/tree/0.0.4) (2016-04-11)
+[Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.0.3...0.0.4)
+
+**Closed issues:**
+
+- Fails for the nodes with more than 3 sublevel. [\#3](https://github.com/matjas/angular-nested-combobox/issues/3)
+- Unable to see anything using github demo.html [\#1](https://github.com/matjas/angular-nested-combobox/issues/1)
+
 ## [0.0.3](https://github.com/matjas/angular-nested-combobox/tree/0.0.3) (2016-04-08)
 [Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.0.2...0.0.3)
 

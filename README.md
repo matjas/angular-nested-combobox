@@ -21,9 +21,13 @@ Example demo in misc/demo folder. You can run this on your local server.
 <script src="dist/ng-nested-combobox.js"></script>
 ```
 
-2. Add tree combo-box directive container directive: 
+2. Add nested combo-box directive container directive: 
+
 ```html
-<select-tree-combo-box control-class="col-md-7" change-event="changeItem"  collection="collection" current-member="filter.service" />
+    <nested-combo-box control-class="col-md-7" control-disabled="isDisabled" change-event="changeItem"
+                          ns-ng-model="activeItem.id" collection="collection" options="{childrenParam: 'children'}"/>
+
+
 ```
 
 3. Prepare input data and output event function :
@@ -36,7 +40,7 @@ Example demo in misc/demo folder. You can run this on your local server.
 	       {
            		  id:1,
            		  name:'item1',
-           		  childrens:[
+           		  children:[
            			  {
            				  id:2,
            				  name:'item1_1'
@@ -52,7 +56,7 @@ Example demo in misc/demo folder. You can run this on your local server.
            	  {
            		  id:4,
            		  name:'item2',
-           		  childrens:[
+           		  children:[
            			  {
            				  id:5,
            				  name:'item2_1'
@@ -60,7 +64,7 @@ Example demo in misc/demo folder. You can run this on your local server.
            			  {
            				  id:6,
            				  name:'item2_2',
-           				  childrens:[
+           				  children:[
            					  {
            						  id:7,
            						  name:'item2_2_1'
@@ -76,16 +80,24 @@ Example demo in misc/demo folder. You can run this on your local server.
         ];
          
 	     $scope.changeItem=function(value){
-                        $scope.selectedItem=value;
+                        $scope.selectedItem = value;
                     }
 	    });
+	    $scope.isDisabled = false;
+       
+        
+        $scope.activeItem = {
+            id: 8
+        }
 ```
 ## Options
 
 1. `control-disabled` - will disable control;
 2. `change-event` - function name in your controller where receive selected data from control
 3. `collection` - input data collection
-4. `current-member` - selected data
+4. `nsNgModel` - select current node
+5. `control-class` - set custom class for control
+6. `options` - childrenParam: name of the json children parameter 
 
 ## Author
 **Maciej Jaskula**
