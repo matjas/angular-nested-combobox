@@ -2,36 +2,24 @@
     'use strict';
 
     angular.module('ui.nested.combobox', [])
-        .constant('nestedComboboxConfig', {
+        .constant('nestedComboBoxConfig', {
             options: {
-                childrenParam: 'childrens'
+                childrenParam: 'children'
             }
         })
-        .controller('NestedComboboxController', ['$scope', '$element', '$attrs', 'nestedComboboxConfig', function ($scope, $element, $attrs, nestedComboboxConfig) {
+        .controller('NestedComboBoxController', ['$scope', '$element', '$attrs', 'nestedComboBoxConfig', function ($scope, $element, $attrs, nestedComboBoxConfig) {
             'use strict';
             var that = this,
                 oldMemberId = null;
             this.isOpen = false;
             this.currentMember = $scope.currentMember;
-            this.options = angular.isDefined($scope.options) ? $scope.options : that.options;
+            this.options = angular.isDefined($scope.options) ? $scope.options : nestedComboBoxConfig.options;
 
-            $scope.$watch('controlDisabled', function (value) {
-                that.controlDisabled = value;
-            });
-
-            /* $element.on('blur', function (e) {
-             //that.isOpen.status = !that.isOpen.status;
-             that.isOpen = false;
-             });
-             $element.on('focus', function (e) {
-             //that.isOpen.status = !that.isOpen.status;
-             that.isOpen = true;
-             });*/
 
             this.toggleOpen = function () {
 
-                if (that.controlDisabled === 'true') {
-                    this.isOpen.status = false;
+                if ($scope.controlDisabled) {
+                    this.isOpen = false;
                     return false;
                 }
                 this.isOpen = !this.isOpen;
@@ -46,28 +34,27 @@
                 if (member.id === 'root') {
                     member.name = event.currentTarget.innerText;
                 }
-                //that.currentMember = member;
                 $scope.changeEvent(member);
                 that.currentMember = member;
                 oldMemberId = member.id;
 
             };
         }])
-        .directive('nestedComboBox', [ '$templateCache', function ($templateCache) {
+        .directive('nestedComboBox', ['$templateCache', function ($templateCache) {
             'use strict';
 
             return {
                 restrict: 'E',
-                controller: 'NestedComboboxController',
+                controller: 'NestedComboBoxController',
                 controllerAs: 'gs',
                 replace: true,
                 template: $templateCache.get('select-group.html'),
                 scope: {
-                    collection: '=',
-                    currentMember: '=',
-                    controlClass: '@',
-                    controlDisabled: '@',
-                    changeEvent: '=',
+                    collection: '=?',
+                    currentMember: '=?',
+                    controlClass: '@?',
+                    controlDisabled: '=?',
+                    changeEvent: '=?',
                     options: '=?'
                 }
             };
@@ -82,7 +69,7 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('select-group.html',
     '\n' +
-    '<div class="custom-select"   data-ng-disabled="gs.controlDisabled==\'true\'" data-ng-class="controlClass" data-ng-click="gs.toggleOpen()">\n' +
+    '<div class="custom-select"   data-ng-disabled="controlDisabled" data-ng-class="controlClass" data-ng-click="gs.toggleOpen()">\n' +
     '    <p>{{gs.currentMember.name}}</p>\n' +
     '    <span><i class="icon-sort-down"></i></span>\n' +
     '    <div class="list" data-ng-show="gs.isOpen">\n' +

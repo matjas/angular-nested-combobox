@@ -16,7 +16,7 @@
                 {
                     id: 1,
                     name: 'item1',
-                    childrens: [
+                    children: [
                         {
                             id: 2,
                             name: 'item1_1'
@@ -30,7 +30,7 @@
                 {
                     id: 4,
                     name: 'item2',
-                    childrens: [
+                    children: [
                         {
                             id: 5,
                             name: 'item2_1'
@@ -38,7 +38,7 @@
                         {
                             id: 6,
                             name: 'item2_2',
-                            childrens: [
+                            children: [
                                 {
                                     id: 7,
                                     name: 'item2_2_1'
@@ -46,11 +46,11 @@
                                 {
                                     id: 8,
                                     name: 'item2_2_2',
-                                    childrens: [
+                                    children: [
                                         {
                                             id: 9,
                                             name: 'item2_2_2_1',
-                                            childrens: [
+                                            children: [
                                                 {
                                                     id: 10,
                                                     name: 'item2_2_2_1_1'
@@ -58,7 +58,7 @@
                                                 {
                                                     id: 11,
                                                     name: 'item2_2_2_1_2',
-                                                    childrens: [
+                                                    children: [
 
 
                                                     ]
@@ -74,6 +74,8 @@
 
                 }
             ];
+
+            this.isDisabled = false;
 
 
             this.collection = this.collection1;
@@ -113,8 +115,8 @@
 
 
     <div class="col">
-        <nested-combo-box control-class="col-md-7" control-disabled="false" change-event="demo.changeItem"
-                          collection="demo.collection" current-member="demo.activeItem" options="{childrenParam: 'childrens'}"/>
+        <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
+                          collection="demo.collection" current-member="demo.activeItem" options="{childrenParam: 'children'}"/>
     </div>
     <div class="col code">
         <p>Selected item:</p>
