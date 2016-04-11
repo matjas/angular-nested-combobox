@@ -2,12 +2,18 @@
     'use strict';
 
     angular.module('ui.nested.combobox', [])
-        .controller('NestedComboboxController', ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+        .constant('nestedComboboxConfig', {
+            options: {
+                childrenParam: 'childrens'
+            }
+        })
+        .controller('NestedComboboxController', ['$scope', '$element', '$attrs', 'nestedComboboxConfig', function ($scope, $element, $attrs, nestedComboboxConfig) {
             'use strict';
             var that = this,
                 oldMemberId = null;
             this.isOpen = false;
             this.currentMember = $scope.currentMember;
+            this.options = angular.isDefined($scope.options) ? $scope.options : that.options;
 
             $scope.$watch('controlDisabled', function (value) {
                 that.controlDisabled = value;
@@ -61,7 +67,8 @@
                     currentMember: '=',
                     controlClass: '@',
                     controlDisabled: '@',
-                    changeEvent: '='
+                    changeEvent: '=',
+                    options: '=?'
                 }
             };
         }]);
