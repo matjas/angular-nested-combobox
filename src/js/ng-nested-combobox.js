@@ -17,13 +17,12 @@
             var node = {};
 
             $scope.$watch('collection', function(value){
-                if(!angular.isArray($scope.collection)){
-                    $scope.collection = [$scope.collection]
+                if($scope.collection){
+                    for(var i = 0; i < $scope.collection.length; i +=1 ) {
+                        node = findNode($scope.nsNgModel, $scope.collection[i]);
+                    }
+                    angular.extend(that.selectedItem, node);
                 }
-                for(var i = 0; i < $scope.collection.length; i +=1 ) {
-                    node = findNode($scope.nsNgModel, $scope.collection[i]);
-                }
-                angular.extend(that.selectedItem, node);
             });
 
 
