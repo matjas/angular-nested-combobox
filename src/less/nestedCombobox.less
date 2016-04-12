@@ -1,29 +1,33 @@
-@baseLineHeight:        20px;
-@textColor:             #333;
-@inputBorder:           #ccc;
-@greyColor:            #cccccc;
-@mainColor:             #1F1F1F;
-@baseLineHeight:        14px;
+@baseLineHeight: 20px;
+@textColor: #333;
+@inputBorder: #ccc;
+@greyColor: #cccccc;
+@mainColor: #1F1F1F;
+@baseLineHeight: 14px;
 
 .box-shadow(@shadow) {
   -webkit-box-shadow: @shadow; // iOS <4.3 & Android <4.1
   box-shadow: @shadow;
 }
 
-body{
-  font-size:14px;
+body {
+  font-size: 14px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
-p,a{font-size:14px;line-height: 20px;}
 
+p, a {
+  font-size: 14px;
+  line-height: 20px;
+}
 
 //Custom select
-.custom-select{position:relative;padding: 0 10px;
+.custom-select {
+  position: relative;
+  padding: 0;
   height: 32px;
   font-size: 13px;
   display: block;
-
   line-height: @baseLineHeight;
   color: @textColor;
   vertical-align: middle;
@@ -34,13 +38,44 @@ p,a{font-size:14px;line-height: 20px;}
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 
-  p{line-height: 32px;margin:0;}
-  > span{position:absolute;right: 6px;top: 4px;}
-  .list{box-sizing: content-box;position:absolute;top:32px;left:-1px;background-color:#FFF;border-style: solid;border-color: @inputBorder;border-width: 1px 1px 1px 1px;width:auto;
-    z-index: 1100;overflow:auto;max-height:200px;min-width: 100%;
-    .box-shadow(0 6px 12px rgba(0,0,0,.175));
-    ul{list-style:none;margin:0;display:block; padding:0;position:relative;
-      a{display:block;
+  input {
+    box-sizing: content-box;
+    line-height: 32px;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 14px;
+    top: 0;
+    position: absolute;
+    border: none;
+  }
+  > span {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+  }
+  .list {
+    box-sizing: content-box;
+    position: absolute;
+    top: 32px;
+    left: -1px;
+    background-color: #FFF;
+    border-style: solid;
+    border-color: @inputBorder;
+    border-width: 1px 1px 1px 1px;
+    width: auto;
+    z-index: 1100;
+    min-width: 100%;
+    .box-shadow(0 6px 12px rgba(0, 0, 0, .175));
+    ul {
+      list-style: none;
+      margin: 0;
+      display: block;
+      padding: 0;
+      overflow: auto;
+      max-height: 200px;
+      position: relative;
+      a {
+        display: block;
         &:before {
           background: transparent;
           -moz-box-sizing: border-box;
@@ -53,30 +88,34 @@ p,a{font-size:14px;line-height: 20px;}
           right: 0;
         }
       }
-      li{ display: block;
-          padding: .5em .5em .5em 1em;
-          &:hover > a:before{
-            background: rgba(90,90,90, 0.1);
-          }
-        a{
+      li {
+        display: block;
+        padding: .5em .5em .5em 1em;
+        &:hover > a:before {
+          background: rgba(90, 90, 90, 0.1);
+        }
+        a {
           //display:block;
-          color:@textColor;
-          text-decoration:none;font-weight:bold;
+          color: @textColor;
+          text-decoration: none;
+          font-weight: bold;
           //&.root{padding-left:10px;}
 
-
         }
-        &.active{
-          > a:before{background: rgba(90,90,90, 0.2)}
+        &.active {
+          > a:before {
+            background: rgba(90, 90, 90, 0.2)
+          }
         }
 
-        ul{margin-bottom: -.5em;
+        ul {
+          margin-bottom: -.5em;
           //margin-top: .5em;
-          position:static;
-          li{
-            a{
-              font-weight:normal;
-              }
+          position: static;
+          li {
+            a {
+              font-weight: normal;
+            }
 
           }
         }
@@ -85,8 +124,14 @@ p,a{font-size:14px;line-height: 20px;}
     }
 
   }
-  .icon-sort-down{background:url('icn.png') no-repeat 0 -12px #FFF;height:20px;width:10px;display:block;}
+  .icon-sort-down {
+    background: url('icn.png') no-repeat 0 -12px #FFF;
+    height: 20px;
+    width: 10px;
+    display: block;
+  }
 }
+
 .custom-select:focus {
   border-color: @mainColor;
 
@@ -98,6 +143,7 @@ fieldset[disabled] .custom-select {
   cursor: not-allowed;
   background-color: #eeeeee;
 }
+
 code, kbd, pre, samp {
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
