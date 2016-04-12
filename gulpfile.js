@@ -156,7 +156,7 @@ gulp.task('css', function () {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('livereload:notify:html', gulpsync.sync(['html']), function () {
+gulp.task('livereload:notify:html', gulpsync.sync(['build-app']), function () {
     return livereload.changed('*')
 });
 gulp.task('livereload:notify:js', gulpsync.sync(['build-app', 'copy:map']), function () {

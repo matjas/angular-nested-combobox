@@ -7,9 +7,9 @@
                 childrenParam: 'children'
             }
         })
-        .controller('NestedComboBoxController', ['$scope', '$element', '$attrs', 'nestedComboBoxConfig', function ($scope, $element, $attrs, nestedComboBoxConfig) {
+        .controller('NestedComboBoxController', ['$scope', '$element', '$attrs', 'nestedComboBoxConfig', '$timeout', function ($scope, $element, $attrs, nestedComboBoxConfig, $timeout) {
             'use strict';
-            var that = this,
+            var gs = this,
                 oldMemberId = null;
             this.isOpen = false;
             this.options = angular.isDefined($scope.options) ? $scope.options : nestedComboBoxConfig.options;
@@ -24,7 +24,7 @@
                     for(var y = 0; y < $scope.collection.length; y += 1 ) {
                         node = findNode($scope.nsNgModel, $scope.collection[y]);
                         if(node !== false){
-                            angular.extend(that.selectedItem, node);
+                            angular.extend(gs.selectedItem, node);
                         }
                     }
                 }
@@ -32,12 +32,25 @@
 
 
             this.toggleOpen = function () {
-
                 if ($scope.controlDisabled) {
                     this.isOpen = false;
                     return false;
                 }
                 this.isOpen = !this.isOpen;
+            };
+
+            this.toggleBlur = function() {
+                $timeout(function (){
+                    gs.isOpen = false;
+                }, 200);
+            };
+
+            this.toggleFocus = function(){
+                if ($scope.controlDisabled) {
+                    this.isOpen = false;
+                    return false;
+                }
+                gs.isOpen = false;
             };
 
             this.selectValue = function (event, member) {
@@ -47,7 +60,7 @@
                 }
                 
                 $scope.changeEvent(member);
-                angular.extend(that.selectedItem, member);
+                angular.extend(gs.selectedItem, member);
                 $scope.nsNgModel = member.id;
                 oldMemberId = member.id;
 
@@ -62,9 +75,9 @@
                         return currentNode;
                     } else {
 
-                        if (angular.isArray(currentNode[that.options.childrenParam])) {
-                            for (i = 0; i < currentNode[that.options.childrenParam].length; i += 1) {
-                                currentChild = currentNode[that.options.childrenParam][i];
+                        if (angular.isArray(currentNode[gs.options.childrenParam])) {
+                            for (i = 0; i < currentNode[gs.options.childrenParam].length; i += 1) {
+                                currentChild = currentNode[gs.options.childrenParam][i];
                                 // Search in the current child
                                 result = findNode(id, currentChild);
 

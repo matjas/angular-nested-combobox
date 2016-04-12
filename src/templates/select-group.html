@@ -1,6 +1,5 @@
-<div class="custom-select" data-ng-disabled="controlDisabled" data-ng-class="controlClass"
-     data-ng-click="gs.toggleOpen()">
-    <p>{{gs.selectedItem.name}}</p>
+<div class="custom-select" data-ng-disabled="controlDisabled" data-ng-class="controlClass" data-ng-click="gs.toggleOpen()"  >
+    <input data-ng-model="gs.selectedItem.name" ng-blur="gs.toggleBlur()" ng-focus="gs.toggleFocus()" readonly />
     <span><i class="icon-sort-down"></i></span>
     <div class="list" data-ng-show="gs.isOpen">
         <ul>
