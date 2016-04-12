@@ -89,6 +89,22 @@
                 id: 8
             }
 
+            this.products = [
+                {
+                    productFamily:{
+                        id: 9,
+                        name: 'Family 1'
+                    }
+
+                },
+                {
+                    productFamily:{
+                        id: 2,
+                        name: 'Family 2'
+                    }
+                }
+            ]
+
         })
 
     </script>
@@ -116,8 +132,13 @@
 
     <div class="col">
 
-    <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
-                      ns-ng-model="demo.activeItem.id" collection="demo.collection" options="{childrenParam: 'children'}"/>
+        <ul>
+            <li data-ng-repeat="item in demo.products">
+                <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
+                                  ns-ng-model="item.productFamily.id" collection="demo.collection" options="{childrenParam: 'children'}"/>
+
+            </li>
+        </ul>
 
     </div>
     <div class="col code">

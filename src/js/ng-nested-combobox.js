@@ -14,14 +14,19 @@
             this.isOpen = false;
             this.options = angular.isDefined($scope.options) ? $scope.options : nestedComboBoxConfig.options;
             this.selectedItem = {};
-            var node = {};
+            var node = false;
 
             $scope.$watch('collection', function(value){
                 if($scope.collection){
-                    for(var i = 0; i < $scope.collection.length; i +=1 ) {
-                        node = findNode($scope.nsNgModel, $scope.collection[i]);
+                    if(!angular.isArray($scope.collection)){
+                        $scope.collection = [$scope.collection];
                     }
-                    angular.extend(that.selectedItem, node);
+                    for(var y = 0; y < $scope.collection.length; y += 1 ) {
+                        node = findNode($scope.nsNgModel, $scope.collection[y]);
+                        if(node !== false){
+                            angular.extend(that.selectedItem, node);
+                        }
+                    }
                 }
             });
 
@@ -53,12 +58,11 @@
                     currentChild,
                     result;
 
-                if (currentNode){
-                    if (id == currentNode.id) {
+                    if (id === currentNode.id) {
                         return currentNode;
                     } else {
 
-                        if(angular.isArray(currentNode[that.options.childrenParam])) {
+                        if (angular.isArray(currentNode[that.options.childrenParam])) {
                             for (i = 0; i < currentNode[that.options.childrenParam].length; i += 1) {
                                 currentChild = currentNode[that.options.childrenParam][i];
                                 // Search in the current child
@@ -73,7 +77,6 @@
                         // The node has not been found and we have no more options
                         return false;
                     }
-                }
 
             }
         }])
