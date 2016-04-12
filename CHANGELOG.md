@@ -1,5 +1,21 @@
 # Change Log
 
+## [0.1.3](https://github.com/matjas/angular-nested-combobox/tree/0.1.3) (2016-04-11)
+[Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.1.2...0.1.3)
+
+## [0.1.2](https://github.com/matjas/angular-nested-combobox/tree/0.1.2) (2016-04-11)
+[Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.1.1...0.1.2)
+
+## [0.1.1](https://github.com/matjas/angular-nested-combobox/tree/0.1.1) (2016-04-11)
+[Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.1.0...0.1.1)
+
+## [0.1.0](https://github.com/matjas/angular-nested-combobox/tree/0.1.0) (2016-04-11)
+[Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.0.4...0.1.0)
+
+**Closed issues:**
+
+- Any way to initialize with a default item? [\#2](https://github.com/matjas/angular-nested-combobox/issues/2)
+
 ## [0.0.4](https://github.com/matjas/angular-nested-combobox/tree/0.0.4) (2016-04-11)
 [Full Changelog](https://github.com/matjas/angular-nested-combobox/compare/0.0.3...0.0.4)
 
