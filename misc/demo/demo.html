@@ -93,17 +93,23 @@
                 {
                     productFamily:{
                         id: 9,
-                        name: 'Family 1'
+                        name: 'item2_2_2_1'
                     }
 
                 },
                 {
                     productFamily:{
                         id: 2,
-                        name: 'Family 2'
+                        name: 'item1_1'
                     }
                 }
-            ]
+            ];
+
+            this.changeModel = function(){
+                this.products[0].productFamily.id = 4
+
+
+            }
 
         })
 
@@ -135,13 +141,19 @@
         <ul>
             <li data-ng-repeat="item in demo.products">
                 <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
-                                  ns-ng-model="item.productFamily.id" collection="demo.collection" options="{childrenParam: 'children'}"/>
+                                  ng-model="item.productFamily.id" collection="demo.collection"
+                                  options="{childrenParam: 'children'}"/>
 
             </li>
         </ul>
 
     </div>
     <div class="col code">
+        <div>
+
+            <p><button ng-click="demo.changeModel()">Change model</button> to:</p>
+            <pre>this.products[0].productFamily.id = 4</pre>
+        </div>
         <p>Selected item:</p>
         <pre>{{demo.selectedItem | json}}</pre>
     </div>

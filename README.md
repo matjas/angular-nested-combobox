@@ -25,7 +25,7 @@ Example demo in misc/demo folder. You can run this on your local server.
 
 ```html
     <nested-combo-box control-class="col-md-7" control-disabled="isDisabled" change-event="changeItem"
-                          ns-ng-model="activeItem.id" collection="collection" options="{childrenParam: 'children'}"/>
+                          ng-model="activeItem.id" collection="collection" options="{childrenParam: 'children'}"/>
 
 
 ```
@@ -95,7 +95,7 @@ Example demo in misc/demo folder. You can run this on your local server.
 1. `control-disabled` - will disable control;
 2. `change-event` - function name in your controller where receive selected data from control
 3. `collection` - input data collection
-4. `nsNgModel` - select current node
+4. `ngModel` - model
 5. `control-class` - set custom class for control
 6. `options` - childrenParam: name of the json children parameter 
 

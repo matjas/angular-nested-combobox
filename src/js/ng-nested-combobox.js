@@ -9,27 +9,9 @@
         })
         .controller('NestedComboBoxController', ['$scope', '$element', '$attrs', 'nestedComboBoxConfig', '$timeout', function ($scope, $element, $attrs, nestedComboBoxConfig, $timeout) {
             'use strict';
-            var gs = this,
-                oldMemberId = null;
+            var gs = this;
             this.isOpen = false;
             this.options = angular.isDefined($scope.options) ? $scope.options : nestedComboBoxConfig.options;
-            this.selectedItem = {};
-            var node = false;
-
-            $scope.$watch('collection', function(value){
-                if($scope.collection){
-                    if(!angular.isArray($scope.collection)){
-                        $scope.collection = [$scope.collection];
-                    }
-                    for(var y = 0; y < $scope.collection.length; y += 1 ) {
-                        node = findNode($scope.nsNgModel, $scope.collection[y]);
-                        if(node !== false){
-                            angular.extend(gs.selectedItem, node);
-                        }
-                    }
-                }
-            });
-
 
             this.toggleOpen = function () {
                 if ($scope.controlDisabled) {
@@ -53,20 +35,7 @@
                 gs.isOpen = false;
             };
 
-            this.selectValue = function (event, member) {
-
-                if (oldMemberId === member.id) {
-                    return true;
-                }
-                
-                $scope.changeEvent(member);
-                angular.extend(gs.selectedItem, member);
-                $scope.nsNgModel = member.id;
-                oldMemberId = member.id;
-
-            };
-
-            function findNode(id, currentNode) {
+            $scope.findNode = function(id, currentNode) {
                 var i,
                     currentChild,
                     result;
@@ -79,8 +48,7 @@
                             for (i = 0; i < currentNode[gs.options.childrenParam].length; i += 1) {
                                 currentChild = currentNode[gs.options.childrenParam][i];
                                 // Search in the current child
-                                result = findNode(id, currentChild);
-
+                                result = $scope.findNode(id, currentChild);
                                 // Return the result if the node has been found
                                 if (result !== false) {
                                     return result;
@@ -96,10 +64,50 @@
         .directive('nestedComboBox', ['$templateCache', function ($templateCache) {
             'use strict';
 
+            var linker = function (scope, iElement, iAttrs, ngModelController){
+                scope.ngModelController = ngModelController;
+                var oldMemberId = null;
+                var node = false;
+
+                scope.selectValue = function (event, member) {
+
+                    if (oldMemberId === member.id) {
+                        return true;
+                    }
+                    if(angular.isFunction(scope.changeEvent)){
+                        scope.changeEvent(member);
+                    }
+                    scope.ngModelController.$setViewValue(member);
+                    scope.ngModelController.$render();
+                    oldMemberId = member.id;
+
+                };
+
+                scope.$watch('model', function(value){
+                    if(scope.collection){
+                        if(!angular.isArray(scope.collection)){
+                            scope.collection = [scope.collection];
+                        }
+                        for(var y = 0; y < scope.collection.length; y += 1 ) {
+                            node = scope.findNode(value, scope.collection[y]);
+                            if(node !== false){
+                                scope.ngModelController.$setViewValue(node);
+                                scope.ngModelController.$render();
+                                if(angular.isFunction(scope.changeEvent)){
+                                    scope.changeEvent(node);
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
             return {
                 restrict: 'E',
                 controller: 'NestedComboBoxController',
                 controllerAs: 'gs',
+                link: linker,
+                require: 'ngModel',
                 replace: true,
                 template: $templateCache.get('select-group.html'),
                 scope: {
@@ -108,7 +116,7 @@
                     controlDisabled: '=?',
                     changeEvent: '=?',
                     options: '=?',
-                    nsNgModel: '=?'
+                    model: '=ngModel'
                 }
             };
         }]);

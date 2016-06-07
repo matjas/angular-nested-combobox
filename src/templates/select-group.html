@@ -1,11 +1,11 @@
 <div class="custom-select" data-ng-disabled="controlDisabled" data-ng-class="controlClass" data-ng-click="gs.toggleOpen()"  >
-    <input data-ng-model="gs.selectedItem.name" ng-blur="gs.toggleBlur()" ng-focus="gs.toggleFocus()" readonly />
+    <input data-ng-model="ngModelController.$modelValue.name" ng-blur="gs.toggleBlur()" ng-focus="gs.toggleFocus()"
+           readonly />
     <span><i class="icon-sort-down"></i></span>
     <div class="list" data-ng-show="gs.isOpen">
         <ul>
-            <li data-ng-class="{'active':ngNgModel.id === member.id}" data-ng-include="'sub-level.html'"
-                data-ng-repeat="member in collection"></li>
+            <li data-ng-class="{'active':ngModelController.$modelValue.id === member.id}" data-ng-include="'sub-level.html'"
+                data-ng-repeat="member in collection track by member.id"></li>
         </ul>
     </div>
-
 </div>

@@ -1,1 +1,163 @@
-!function(e,n,t){"use strict";n.module("ui.nested.combobox",[]).constant("nestedComboBoxConfig",{options:{childrenParam:"children"}}).controller("NestedComboBoxController",["$scope","$element","$attrs","nestedComboBoxConfig","$timeout",function(e,t,o,l,i){function s(e,t){var o,l,i;if(e===t.id)return t;if(n.isArray(t[c.options.childrenParam]))for(o=0;o<t[c.options.childrenParam].length;o+=1)if(l=t[c.options.childrenParam][o],i=s(e,l),i!==!1)return i;return!1}var c=this,a=null;this.isOpen=!1,this.options=n.isDefined(e.options)?e.options:l.options,this.selectedItem={};var r=!1;e.$watch("collection",function(t){if(e.collection){n.isArray(e.collection)||(e.collection=[e.collection]);for(var o=0;o<e.collection.length;o+=1)r=s(e.nsNgModel,e.collection[o]),r!==!1&&n.extend(c.selectedItem,r)}}),this.toggleOpen=function(){return e.controlDisabled?(this.isOpen=!1,!1):void(this.isOpen=!this.isOpen)},this.toggleBlur=function(){i(function(){c.isOpen=!1},200)},this.toggleFocus=function(){return e.controlDisabled?(this.isOpen=!1,!1):void(c.isOpen=!1)},this.selectValue=function(t,o){return a===o.id?!0:(e.changeEvent(o),n.extend(c.selectedItem,o),e.nsNgModel=o.id,void(a=o.id))}}]).directive("nestedComboBox",["$templateCache",function(e){return{restrict:"E",controller:"NestedComboBoxController",controllerAs:"gs",replace:!0,template:e.get("select-group.html"),scope:{collection:"=?",controlClass:"@?",controlDisabled:"=?",changeEvent:"=?",options:"=?",nsNgModel:"=?"}}}])}(window,window.angular),function(e){try{e=angular.module("ui.nested.combobox")}catch(n){e=angular.module("ui.nested.combobox",[])}e.run(["$templateCache",function(e){e.put("select-group.html",'<div class="custom-select" data-ng-disabled="controlDisabled" data-ng-class="controlClass" data-ng-click="gs.toggleOpen()"  >\n    <input data-ng-model="gs.selectedItem.name" ng-blur="gs.toggleBlur()" ng-focus="gs.toggleFocus()" readonly />\n    <span><i class="icon-sort-down"></i></span>\n    <div class="list" data-ng-show="gs.isOpen">\n        <ul>\n            <li data-ng-class="{\'active\':ngNgModel.id === member.id}" data-ng-include="\'sub-level.html\'"\n                data-ng-repeat="member in collection"></li>\n        </ul>\n    </div>\n\n</div>')}])}(),function(e){try{e=angular.module("ui.nested.combobox")}catch(n){e=angular.module("ui.nested.combobox",[])}e.run(["$templateCache",function(e){e.put("sub-level.html",'<a href="" data-ng-click="gs.selectValue(e,member)"><span>{{member.name}}</span></a>\n<ul>\n    <li data-ng-class="{\'active\':gs.selectedItem.id === member.id}"\n        ng-repeat="member in member[gs.options.childrenParam]" ng-include="\'sub-level.html\'"></li>\n</ul>\n')}])}();
+(function (window, angular, undefined) {
+    'use strict';
+
+    angular.module('ui.nested.combobox', [])
+        .constant('nestedComboBoxConfig', {
+            options: {
+                childrenParam: 'children'
+            }
+        })
+        .controller('NestedComboBoxController', ['$scope', '$element', '$attrs', 'nestedComboBoxConfig', '$timeout', function ($scope, $element, $attrs, nestedComboBoxConfig, $timeout) {
+            'use strict';
+            var gs = this;
+            this.isOpen = false;
+            this.options = angular.isDefined($scope.options) ? $scope.options : nestedComboBoxConfig.options;
+
+            this.toggleOpen = function () {
+                if ($scope.controlDisabled) {
+                    this.isOpen = false;
+                    return false;
+                }
+                this.isOpen = !this.isOpen;
+            };
+
+            this.toggleBlur = function() {
+                $timeout(function (){
+                    gs.isOpen = false;
+                }, 200);
+            };
+
+            this.toggleFocus = function(){
+                if ($scope.controlDisabled) {
+                    this.isOpen = false;
+                    return false;
+                }
+                gs.isOpen = false;
+            };
+
+            $scope.findNode = function(id, currentNode) {
+                var i,
+                    currentChild,
+                    result;
+
+                    if (id === currentNode.id) {
+                        return currentNode;
+                    } else {
+
+                        if (angular.isArray(currentNode[gs.options.childrenParam])) {
+                            for (i = 0; i < currentNode[gs.options.childrenParam].length; i += 1) {
+                                currentChild = currentNode[gs.options.childrenParam][i];
+                                // Search in the current child
+                                result = $scope.findNode(id, currentChild);
+                                // Return the result if the node has been found
+                                if (result !== false) {
+                                    return result;
+                                }
+                            }
+                        }
+                        // The node has not been found and we have no more options
+                        return false;
+                    }
+
+            }
+        }])
+        .directive('nestedComboBox', ['$templateCache', function ($templateCache) {
+            'use strict';
+
+            var linker = function (scope, iElement, iAttrs, ngModelController){
+                scope.ngModelController = ngModelController;
+                var oldMemberId = null;
+                var node = false;
+
+                scope.selectValue = function (event, member) {
+
+                    if (oldMemberId === member.id) {
+                        return true;
+                    }
+                    if(angular.isFunction(scope.changeEvent)){
+                        scope.changeEvent(member);
+                    }
+                    scope.ngModelController.$setViewValue(member);
+                    scope.ngModelController.$render();
+                    oldMemberId = member.id;
+
+                };
+
+                scope.$watch('model', function(value){
+                    if(scope.collection){
+                        if(!angular.isArray(scope.collection)){
+                            scope.collection = [scope.collection];
+                        }
+                        for(var y = 0; y < scope.collection.length; y += 1 ) {
+                            node = scope.findNode(value, scope.collection[y]);
+                            if(node !== false){
+                                scope.ngModelController.$setViewValue(node);
+                                scope.ngModelController.$render();
+                                if(angular.isFunction(scope.changeEvent)){
+                                    scope.changeEvent(node);
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            return {
+                restrict: 'E',
+                controller: 'NestedComboBoxController',
+                controllerAs: 'gs',
+                link: linker,
+                require: 'ngModel',
+                replace: true,
+                template: $templateCache.get('select-group.html'),
+                scope: {
+                    collection: '=?',
+                    controlClass: '@?',
+                    controlDisabled: '=?',
+                    changeEvent: '=?',
+                    options: '=?',
+                    model: '=ngModel'
+                }
+            };
+        }]);
+})(window, window.angular);
+(function(module) {
+try {
+  module = angular.module('ui.nested.combobox');
+} catch (e) {
+  module = angular.module('ui.nested.combobox', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('select-group.html',
+    '<div class="custom-select" data-ng-disabled="controlDisabled" data-ng-class="controlClass" data-ng-click="gs.toggleOpen()"  >\n' +
+    '    <input data-ng-model="ngModelController.$modelValue.name" ng-blur="gs.toggleBlur()" ng-focus="gs.toggleFocus()"\n' +
+    '           readonly />\n' +
+    '    <span><i class="icon-sort-down"></i></span>\n' +
+    '    <div class="list" data-ng-show="gs.isOpen">\n' +
+    '        <ul>\n' +
+    '            <li data-ng-class="{\'active\':ngModelController.$modelValue.id === member.id}" data-ng-include="\'sub-level.html\'"\n' +
+    '                data-ng-repeat="member in collection track by member.id"></li>\n' +
+    '        </ul>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('ui.nested.combobox');
+} catch (e) {
+  module = angular.module('ui.nested.combobox', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sub-level.html',
+    '<a href="" data-ng-click="selectValue(e,member)"><span>{{member.name}}</span></a>\n' +
+    '<ul>\n' +
+    '    <li data-ng-class="{\'active\':ngModelController.$modelValue.id === member.id}"\n' +
+    '        ng-repeat="member in member[gs.options.childrenParam] track by member.id" ng-include="\'sub-level.html\'"></li>\n' +
+    '</ul>\n' +
+    '');
+}]);
+})();
+
+//# sourceMappingURL=ng-nested-combobox.js.map
