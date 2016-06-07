@@ -34,7 +34,7 @@ Example demo in misc/demo folder. You can run this on your local server.
 
 ```js
 	
-	angular.module('main', ['ng.tree.combobox'])
+	angular.module('main', ['ui.nested.combobox'])
 	.controller('myController', function($scope) {
 	    $scope.collection=[
 	       {
