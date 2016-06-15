@@ -101,8 +101,10 @@
 					}
 				});
 				scope.$watchCollection('collection', function () {
+					
 					scope.ngModelController.$setViewValue();
 					scope.ngModelController.$render();
+
 					if (angular.isFunction(scope.changeEvent)) {
 						scope.changeEvent(node);
 					}
