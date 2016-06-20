@@ -99,8 +99,8 @@
                 },
                 {
                     productFamily:{
-                        id: 2,
-                        name: 'item1_1'
+                        id: 1,
+                        name: 'item1'
                     }
                 }
             ];
@@ -140,6 +140,7 @@
     <div class="col">
 
         <ul>
+
             <li data-ng-repeat="item in demo.products">
                 <nested-combo-box control-class="col-md-7" control-disabled="demo.isDisabled" change-event="demo.changeItem"
                                   ng-model="item.productFamily.id" collection="demo.collection"
@@ -151,7 +152,7 @@
     </div>
     <div class="col code">
         <div>
-            <!--<p><button ng-click="demo.changeCollection()">Change collection</button></p>-->
+            <p><button ng-click="demo.changeCollection()">Change collection</button></p>
             <p><button ng-click="demo.changeModel()">Change model</button> to:</p>
             <pre>this.products[0].productFamily.id = 4</pre>
         </div>

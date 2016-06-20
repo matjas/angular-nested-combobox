@@ -66,47 +66,46 @@
 
 			var linker = function (scope, iElement, iAttrs, ngModelController) {
 				scope.ngModelController = ngModelController;
-				var oldMemberId = null;
-				var node = false;
+
+				if (!ngModelController) return;
 
 				scope.selectValue = function (event, member) {
 
-					if (oldMemberId === member.id) {
-						return true;
-					}
 					if (angular.isFunction(scope.changeEvent)) {
 						scope.changeEvent(member);
 					}
 					scope.ngModelController.$setViewValue(member);
 					scope.ngModelController.$render();
-					oldMemberId = member.id;
 
 				};
 
-				scope.$watch('model', function (value) {
+				function setCurrentItem(value){
+					var node = null;
 					if (scope.collection) {
+						var searchId = angular.isObject(value)? value.id : value;
 						if (!angular.isArray(scope.collection)) {
 							scope.collection = [scope.collection];
 						}
 						for (var y = 0; y < scope.collection.length; y += 1) {
-							node = scope.findNode(value, scope.collection[y]);
-							if (node !== false) {
-								scope.ngModelController.$setViewValue(node);
-								scope.ngModelController.$render();
-								if (angular.isFunction(scope.changeEvent)) {
-									scope.changeEvent(node);
-								}
-							}
+							var nd = scope.findNode(searchId, scope.collection[y]);
+							if(nd)
+								node = nd;
 						}
+						scope.selectValue(null, node)
 					}
+				}
+
+				scope.$watch('model', function (value) {
+					setCurrentItem(value)
 				});
+
 				scope.$watchCollection('collection', function () {
-					
-					scope.ngModelController.$setViewValue();
-					scope.ngModelController.$render();
+					if(scope.ngModelController.$modelValue){
+						setCurrentItem(scope.ngModelController.$modelValue);
+					}
 
 					if (angular.isFunction(scope.changeEvent)) {
-						scope.changeEvent(node);
+						scope.changeEvent();
 					}
 				})
 			};
